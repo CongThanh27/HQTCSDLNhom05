@@ -36,10 +36,36 @@ namespace FutureWorldStore.Views
             btn.Background = (SolidColorBrush)new BrushConverter().ConvertFrom(hover_color);
             this.btnCaptured = btn;
 
+            btnChiTietHoaDon.Visibility = Visibility.Visible;
 
             this.grvTab.Visibility = Visibility.Hidden;
             grv.Visibility = Visibility.Visible;
             this.grvTab = grv;
+            if (grvHoaDon.Visibility == Visibility.Visible)
+            {
+                btnChiTietHoaDon.Visibility = Visibility.Visible;
+
+            }
+            else
+                btnChiTietHoaDon.Visibility = Visibility.Hidden;
+            if (grvChiTietHoaDon.Visibility == Visibility.Visible)
+            {
+                btnAdd.Visibility = Visibility.Hidden;
+                btnChange.Visibility = Visibility.Hidden;
+                btnDelete.Visibility = Visibility.Hidden;
+                btnSearch.Visibility = Visibility.Hidden;
+                btnClear.Visibility = Visibility.Hidden;
+                btnReload.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btnAdd.Visibility = Visibility.Visible;
+                btnChange.Visibility = Visibility.Visible;
+                btnDelete.Visibility = Visibility.Visible;
+                btnSearch.Visibility = Visibility.Visible;
+                btnClear.Visibility = Visibility.Visible;
+                btnReload.Visibility = Visibility.Visible;
+            }
         }
 
         // Var check
@@ -71,8 +97,8 @@ namespace FutureWorldStore.Views
         private NhanVien nhanVien = new NhanVien();
         private KhachHang khachHang = new KhachHang();
         //private Nha nhaCungCap = new NhaCungCap();
+        private ChiTietHoaDon inhoadon = new ChiTietHoaDon();
 
-    
 
         #region Load
 
@@ -242,7 +268,45 @@ namespace FutureWorldStore.Views
             {
                 MessageBox.Show(ex.Message);
             }
-        }    
+        }
+        private void loadInHoaDon()
+        {
+            try
+            {
+                string idHD = txtIdHoaDon.Text.Trim();
+                dataTable = new DataTable();
+                dataTable.Clear();
+                DataSet ds = inhoadon.GetID(idHD);
+                dataTable = ds.Tables[0];
+                foreach (DataRow dt in dataTable.Rows)
+                {
+                    lblTKHCTHD.Content = "Tên khách hàng: " + dt["tenKH"].ToString().Trim();
+                    lblSdt.Content = "Số điện thoại: " + dt["sdt"].ToString().Trim();
+                    lblNLHD.Content = dt["ngayLapHoaDon"].ToString().Trim();
+                    txttenDienThoai.Text += dt["tenDienThoai"].ToString().Trim() + Environment.NewLine;
+                    txtMS.Text += dt["mauSac"].ToString().Trim() + Environment.NewLine;
+                    txtDL.Text += dt["dungLuong"].ToString().Trim() + Environment.NewLine;
+                    txtBN.Text += dt["boNho"].ToString().Trim() + Environment.NewLine;
+                    txtSL.Text += dt["soLuong"].ToString().Trim() + Environment.NewLine;
+                    txtGia.Text += dt["thanhTien"].ToString().Trim() + "$" + Environment.NewLine;
+
+                }
+                dataTable.Clear();
+                DataSet ds2 = inhoadon.SumMoneyCTHD(idHD);
+                dataTable = ds2.Tables[0];
+                foreach (DataRow dt in dataTable.Rows)
+                {
+                    //MessageBox.Show(dt[0].ToString().Trim());
+                    lblSum.Content = dt[0].ToString().Trim() + "$";
+                }
+                lblID.Content = "Mã hóa đơn: " + idHD;
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         #endregion
 
         #region Add
@@ -864,6 +928,12 @@ namespace FutureWorldStore.Views
 
         private void btnHoaDon_Click(object sender, RoutedEventArgs e)
         {
+            txttenDienThoai.Text = "";
+            txtMS.Text = "";
+            txtDL.Text = "";
+            txtBN.Text = "";
+            txtSL.Text = "";
+            txtGia.Text = "";
             dgvTab_Capture_Action(btnHoaDon, grvHoaDon);
             this.loadHoaDon();
         }
@@ -1234,6 +1304,12 @@ namespace FutureWorldStore.Views
         private void cbxThongKeDTNgay_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
+        }
+
+        private void btnInChiTietHoaDon_Click(object sender, RoutedEventArgs e)
+        {
+            dgvTab_Capture_Action(btnHoaDon, grvChiTietHoaDon);
+            this.loadInHoaDon();
         }
     }
 }

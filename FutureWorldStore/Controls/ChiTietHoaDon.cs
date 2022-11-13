@@ -20,7 +20,15 @@ namespace FutureWorldStore.Controls
         {
             return db.ExecuteQueryDataSet($"select * from {view}", CommandType.Text);
         }
+        public DataSet GetID(string id = "HD07")
+        {
+            return db.ExecuteQueryDataSet($"select * from sp_ViewCTHD02('{id}')", CommandType.Text);
+        }
 
+        public DataSet SumMoneyCTHD(string id = "HD07")
+        {
+            return db.ExecuteQueryDataSet($"select dbo.fn_SumMoneyCTHD('{id}')", CommandType.Text);
+        }
         public bool Add(string idChiTietHoaDon, string idHoaDon, string idDienThoai, string soLuong, string status, ref string err)
         {
             string sqlString = $"exec sp_ReviseChiTietHoaDon '{idChiTietHoaDon}','{idHoaDon}',N'{idDienThoai}',N'{soLuong}',{status},'Insert'";
