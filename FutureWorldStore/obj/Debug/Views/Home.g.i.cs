@@ -1041,7 +1041,47 @@ namespace FutureWorldStore.Views {
         #line hidden
         
         
-        #line 2638 "..\..\..\Views\Home.xaml"
+        #line 2627 "..\..\..\Views\Home.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Grid grvInHoaDon;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 2663 "..\..\..\Views\Home.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Button btnCheckDate1;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 2667 "..\..\..\Views\Home.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.DataGrid dgThongKe1;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 2670 "..\..\..\Views\Home.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.TextBox txtIdNCC2;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 2690 "..\..\..\Views\Home.xaml"
+        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
+        internal System.Windows.Controls.Label lblIdDT7;
+        
+        #line default
+        #line hidden
+        
+        
+        #line 2712 "..\..\..\Views\Home.xaml"
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
         internal System.Windows.Controls.Button btnClose;
         
@@ -1634,9 +1674,42 @@ namespace FutureWorldStore.Views {
             this.lblID = ((System.Windows.Controls.Label)(target));
             return;
             case 126:
+            this.grvInHoaDon = ((System.Windows.Controls.Grid)(target));
+            return;
+            case 127:
+            this.btnCheckDate1 = ((System.Windows.Controls.Button)(target));
+            
+            #line 2663 "..\..\..\Views\Home.xaml"
+            this.btnCheckDate1.Click += new System.Windows.RoutedEventHandler(this.btnCheckDate_Click);
+            
+            #line default
+            #line hidden
+            return;
+            case 128:
+            this.dgThongKe1 = ((System.Windows.Controls.DataGrid)(target));
+            
+            #line 2667 "..\..\..\Views\Home.xaml"
+            this.dgThongKe1.SelectedCellsChanged += new System.Windows.Controls.SelectedCellsChangedEventHandler(this.dgDienThoai_SelectedCellsChanged);
+            
+            #line default
+            #line hidden
+            
+            #line 2667 "..\..\..\Views\Home.xaml"
+            this.dgThongKe1.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.dgThongKe_SelectionChanged);
+            
+            #line default
+            #line hidden
+            return;
+            case 129:
+            this.txtIdNCC2 = ((System.Windows.Controls.TextBox)(target));
+            return;
+            case 130:
+            this.lblIdDT7 = ((System.Windows.Controls.Label)(target));
+            return;
+            case 131:
             this.btnClose = ((System.Windows.Controls.Button)(target));
             
-            #line 2646 "..\..\..\Views\Home.xaml"
+            #line 2720 "..\..\..\Views\Home.xaml"
             this.btnClose.Click += new System.Windows.RoutedEventHandler(this.btnClose_Click);
             
             #line default
