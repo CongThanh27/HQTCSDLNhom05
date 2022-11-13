@@ -17,7 +17,7 @@
             BorderBrush="#ccc"
             Margin="0,160,0,0">
             <Border.Background>
-                <ImageBrush ImageSource="../Images/BoderLL_DienThoai.png"/>
+                <ImageBrush ImageSource="../Images/CTHDT.png"/>
             </Border.Background>
             <StackPanel 
                 x:Name="tab"
@@ -374,7 +374,7 @@
             BorderThickness="0,0,0,1"
             BorderBrush="#ccc">
             <Border.Background>
-                <ImageBrush ImageSource="../Images/header2_DienThoai.png"/>
+                <ImageBrush ImageSource="../Images/header_CTHD.png"/>
             </Border.Background>
             <Grid x:Name="TB">
 
@@ -417,7 +417,7 @@
         <Border x:Name="GDbody_Border"
             Margin="242,161,-2,-1" RenderTransformOrigin="0.498,0.476">
             <Border.Background>
-                <ImageBrush ImageSource="../Images/Body3_DienThoai.png"/>
+                <ImageBrush ImageSource="../Images/ChiTietHoaDonn.png"/>
             </Border.Background>
 
 
@@ -1766,7 +1766,7 @@
                         Content="Mã điện thoại"/>
 
                 </Grid>
-                <Grid x:Name="grvThongKeDT" Visibility="Visible">
+                <Grid x:Name="grvThongKeDT" Visibility="Hidden">
 
                     <!--Hãng điện thoại-->
 
@@ -1850,7 +1850,7 @@
                     </ComboBox>
 
                 </Grid>
-                <Grid x:Name="grvHoaDon" Visibility="Hidden">
+                <Grid x:Name="grvHoaDon" Visibility="Visible">
 
                     <!--Hãng điện thoại-->
 
@@ -2415,6 +2415,215 @@
                         <ImageBrush ImageSource="../Images/logout.png" Stretch="Uniform"/>
                     </Button.Background>
                 </Button>
+                <Button 
+                    x:Name="btnChiTietHoaDon"
+                    Foreground="#fefefe"
+                    FontWeight="DemiBold"
+                    FontSize="12"
+                    Width="34"
+                    BorderThickness="0"
+                    Content=""
+                    Cursor="Hand" HorizontalAlignment="Left"
+                    Margin="838,10,0,495" Click="btnInChiTietHoaDon_Click" RenderTransformOrigin="0.5,0.501"
+                     Visibility="Hidden"    >
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="#ccc">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#44a232"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Resources>
+                    <Button.Background>
+                        <ImageBrush ImageSource="../Images/info_64px.png" Stretch="Uniform"/>
+                    </Button.Background>
+                </Button>
+                <Grid x:Name="grvChiTietHoaDon" Visibility="Hidden" Margin="14,0,-14,0">
+                    <Grid.Background>
+                        <ImageBrush/>
+                    </Grid.Background>
+
+                    <!--Hãng điện thoại-->
+
+
+                    <!--Tên Dien Thoai-->
+
+
+
+                    <!--Màu Sắc-->
+
+
+
+                    <!--Dung Lượng-->
+
+
+                    <!--Bộ Nhớ-->
+
+
+                    <!--Số Lượng-->
+
+
+
+                    <!--Giá Bán-->
+
+
+                    <!--KhuyenMai-->
+
+                    <!--Hãng điện thoại-->
+                    <Label 
+                        x:Name="lblTKHCTHD"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        Foreground="#4a4a4a"
+                        FontSize="9"
+                        FontWeight="DemiBold"
+                        Margin="299,103,0,0"
+                        Content="Tên khách hàng: Nguyễn Văn A"/>
+
+
+                    <!--Data-->
+                    <Label 
+                        x:Name="lblSdt"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        Foreground="#4a4a4a"
+                        FontSize="9"
+                        FontWeight="DemiBold"
+                        Margin="301,123,0,0"
+                        Content="Số điện thoại: 0381234567"/>
+                    <Grid Margin="280,141,357,188">
+                        <Label 
+                            x:Name="lbTSP"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left" 
+                            Foreground="#4a4a4a"
+                            FontSize="9"
+                            FontWeight="DemiBold"
+                            Content="Tên sản phẩm" Height="31" Width="73"/>
+                        <TextBox FontSize="9" x:Name="txttenDienThoai" HorizontalAlignment="Left" Height="215" Margin="5,22,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" Background="{x:Null}">
+                            <TextBox.BorderBrush>
+                                <SolidColorBrush Color="#FF2249BD" Opacity="0"/>
+                            </TextBox.BorderBrush>
+                        </TextBox>
+                        <Label 
+                            x:Name="lbMS"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left" 
+                            Foreground="#4a4a4a"
+                            FontSize="9"
+                            FontWeight="DemiBold"
+                            Margin="81,0,0,0"
+                            Content="Màu sắc" Height="31" Width="47"/>
+                        <Label 
+                            x:Name="lbDL"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left" 
+                            Foreground="#4a4a4a"
+                            FontSize="9"
+                            FontWeight="DemiBold"
+                            Margin="122,0,0,0"
+                            Content="Dung lượng" Height="31" Width="59"/>
+                        <Label 
+                            x:Name="lbBN"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left" 
+                            Foreground="#4a4a4a"
+                            FontSize="9"
+                            FontWeight="DemiBold"
+                            Margin="178,0,0,0"
+                            Content="Bộ nhớ" Height="31" Width="40"/>
+                        <Label 
+                            x:Name="lbGia"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left" 
+                            Foreground="#4a4a4a"
+                            FontSize="9"
+                            FontWeight="DemiBold"
+                            Margin="260,0,-21,0"
+                            Content="Giá" Height="31" Width="59"/>
+                        <Label 
+                            x:Name="lbSL"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Left" 
+                            Foreground="#4a4a4a"
+                            FontSize="9"
+                            FontWeight="DemiBold"
+                            Margin="220,0,0,0"
+                            Content="SL" Height="31" Width="18"/>
+                        <TextBox  x:Name="txtMS" HorizontalAlignment="Left" Height="215" Margin="86,22,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" Background="{x:Null}" FontSize="9" >
+                            <TextBox.BorderBrush>
+                                <SolidColorBrush Color="#FF2249BD" Opacity="0"/>
+                            </TextBox.BorderBrush>
+                        </TextBox>
+                        <TextBox  x:Name="txtDL" HorizontalAlignment="Left" Height="215" Margin="132,22,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" Background="{x:Null}" FontSize="9" >
+                            <TextBox.BorderBrush>
+                                <SolidColorBrush Color="#FF2249BD" Opacity="0"/>
+                            </TextBox.BorderBrush>
+                        </TextBox>
+                        <TextBox  x:Name="txtBN" HorizontalAlignment="Left" Height="215" Margin="182,22,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Width="32" Background="{x:Null}" FontSize="9" >
+                            <TextBox.BorderBrush>
+                                <SolidColorBrush Color="#FF2249BD" Opacity="0"/>
+                            </TextBox.BorderBrush>
+                        </TextBox>
+                        <TextBox  x:Name="txtSL" HorizontalAlignment="Left" Height="215" Margin="221,22,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Width="21" Background="{x:Null}" FontSize="9" >
+                            <TextBox.BorderBrush>
+                                <SolidColorBrush Color="#FF2249BD" Opacity="0"/>
+                            </TextBox.BorderBrush>
+                        </TextBox>
+                        <TextBox  x:Name="txtGia" HorizontalAlignment="Left" Height="215" Margin="256,22,0,-6" TextWrapping="Wrap" VerticalAlignment="Top" Width="35" Background="{x:Null}" FontSize="9" >
+                            <TextBox.BorderBrush>
+                                <SolidColorBrush Color="#FF2249BD" Opacity="0"/>
+                            </TextBox.BorderBrush>
+                        </TextBox>
+                    </Grid>
+                    <Label 
+                        x:Name="lblNLHD"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        Foreground="#4a4a4a"
+                        FontSize="9"
+                        FontWeight="DemiBold"
+                        Margin="468,83,0,0"
+                        Content="12/11/2022"/>
+                    <Label 
+                        x:Name="lblSum"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        Foreground="#4a4a4a"
+                        FontSize="14"
+                        FontWeight="DemiBold"
+                        Margin="458,405,0,0"
+                        Content="9999999$" Width="87" Height="32"/>
+                    <Label 
+                        x:Name="lblSum_Copy"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        Foreground="#4a4a4a"
+                        FontSize="14"
+                        FontWeight="DemiBold"
+                        Margin="318,404,0,0"
+                        Content="Tổng tiền:" Width="87" Height="32"/>
+                    <Label 
+                        x:Name="lblID"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left" 
+                        Foreground="#4a4a4a"
+                        FontSize="9"
+                        FontWeight="DemiBold"
+                        Margin="300,83,0,0"
+                        Content="Mã hóa đơn:" Width="100"/>
+
+                </Grid>
             </Grid>
         </Border>
 
