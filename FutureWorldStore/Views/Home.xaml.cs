@@ -28,7 +28,7 @@ namespace FutureWorldStore.Views
         private Button btnCaptured = null!;
         private Grid grvTab = null!;
         private DispatcherTimer timer = null!;
-        private DienThoai dt = new DienThoai();
+        
         private string err;
         private void dgvTab_Capture_Action(Button btn, Grid grv)
         {
@@ -70,11 +70,14 @@ namespace FutureWorldStore.Views
 
         // Var check
         bool checkAdd = false;
-        public Home(Login loginWindow)
+        private string capDoQuyen;
+        public string CapDoQuyen { get => capDoQuyen; set => capDoQuyen = value; }
+        public Home(){}
+        public Home(User user) : this()
         {
             InitializeComponent();
             this.load_firstTab();
-            this.loginWindow = loginWindow;
+            this.CapDoQuyen = user.PhanQuyen;
             this.loadTimer();
         }
 
@@ -90,14 +93,15 @@ namespace FutureWorldStore.Views
 
         // private string err = null!;
         private DataTable dataTable = null!;
-        private HangDienThoai hangDienThoai = new HangDienThoai();
-        private NhaCungCap nhaCungCap = new NhaCungCap();
-        private NhapKho nhapKho = new NhapKho();
-        private HoaDon hoaDon = new HoaDon();
-        private NhanVien nhanVien = new NhanVien();
-        private KhachHang khachHang = new KhachHang();
-        //private Nha nhaCungCap = new NhaCungCap();
-        private ChiTietHoaDon inhoadon = new ChiTietHoaDon();
+        private DienThoai dt;
+        private HangDienThoai hangDienThoai;
+        private NhaCungCap nhaCungCap;
+        private NhapKho nhapKho;
+        private HoaDon hoaDon ;
+        private NhanVien nhanVien;
+        private KhachHang khachHang;
+        private ChiTietHoaDon inhoadon;
+
 
 
         #region Load
@@ -125,12 +129,20 @@ namespace FutureWorldStore.Views
         {
             try
             {
-                // Lấy data hiển thị lên DataGridView
+                //Khởi tạo biến điện thoại và hãng điện thoại
+                hangDienThoai = new HangDienThoai(CapDoQuyen);
+                dt = new DienThoai(CapDoQuyen);
+
+                //Xóa danh sách c
                 dataTable = new DataTable();
                 dataTable.Clear();
+                cbHangDienThoai.Items.Clear();
+
+                // Lấy data hiển thị lên DataGridView
                 DataSet ds = dt.Get();
                 dataTable = ds.Tables[0];
                 dgDienThoai.ItemsSource = ds.Tables[0].DefaultView;
+
                 // Lấy data hiển thị lên Combobox
                 DataSet dataSet = hangDienThoai.GetName();
                 DataTable dtable = dataSet.Tables[0];
@@ -149,11 +161,19 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                //Khởi tạo biến điện thoại
+                dt = new DienThoai(CapDoQuyen);
+
+                //Xóa danh sách cũ
                 dataTable = new DataTable();
                 dataTable.Clear();
+
+                //Hiển thị danh sách datagridview
                 DataSet ds = dt.SearchPhone(tenDT);
                 dataTable = ds.Tables[0];
                 dgThongTinSearch.ItemsSource = ds.Tables[0].DefaultView;
+                
+
             }
             catch (SqlException ex)
             {
@@ -164,6 +184,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                hoaDon = new HoaDon(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = hoaDon.GetDT();
@@ -179,6 +200,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                hangDienThoai = new HangDienThoai(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = hangDienThoai.Get();
@@ -194,6 +216,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                nhaCungCap = new NhaCungCap(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = nhaCungCap.Get();
@@ -210,6 +233,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                inhoadon = new ChiTietHoaDon(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = inhoadon.GetID(idHoaDon);
@@ -227,11 +251,36 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                //Khở tạo biến nhập kho
+                nhapKho = new NhapKho(CapDoQuyen);
+                nhanVien = new NhanVien(CapDoQuyen);
+                nhaCungCap = new NhaCungCap(CapDoQuyen);
+                //Xóa danh sách cũ
                 dataTable = new DataTable();
                 dataTable.Clear();
+                cbxIdNCC.Items.Clear();
+                cbxIdNV.Items.Clear();
+
+                // HIển thị danh sách lên datagrivdview
                 DataSet ds = nhapKho.Get();
                 dataTable = ds.Tables[0];
                 dgNhapKho.ItemsSource = ds.Tables[0].DefaultView;
+
+                //Hiển thị danh sách combobox Mã nhân viên
+                DataSet dataSet = nhanVien.Get();
+                DataTable dtable = dataSet.Tables[0];
+                foreach (DataRow dt in dtable.Rows)
+                {
+                    cbxIdNV.Items.Add(dt["idNV"].ToString().Trim());
+                }
+
+                //Hiển thị danh sách combobox Mã nhà cung cấp
+                DataSet dsNcc = nhaCungCap.Get();
+                DataTable dtNcc = dsNcc.Tables[0];
+                foreach (DataRow dt in dtNcc.Rows)
+                {
+                    cbxIdNCC.Items.Add(dt["idNCC"].ToString().Trim());
+                }
             }
             catch (SqlException ex)
             {
@@ -243,6 +292,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                nhanVien = new NhanVien(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = nhanVien.Get();
@@ -259,11 +309,37 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                // Khởi tạo các biến
+                hoaDon = new HoaDon(CapDoQuyen);
                 dataTable = new DataTable();
+                nhanVien = new NhanVien(CapDoQuyen);
+                khachHang = new KhachHang(CapDoQuyen);
+                //Xóa danh sách cũ
                 dataTable.Clear();
+                cbxNhanVien.Items.Clear();
+                cbxKhachHang.Items.Clear();
+
+                //Hiển thị danh sách lên datagrivdview
                 DataSet ds = hoaDon.Get();
                 dataTable = ds.Tables[0];
                 dgHoaDon.ItemsSource = ds.Tables[0].DefaultView;
+
+                //Hiển thị danh sách lên combobox Nhân viên            
+                DataSet dsNV = nhanVien.Get();
+                DataTable dtNV = dsNV.Tables[0];
+                foreach (DataRow dt in dtNV.Rows)
+                {
+                    cbxNhanVien.Items.Add(dt["idNV"].ToString().Trim());
+                }
+                //Hiển thị danh sách combobox Mã Khách hàng
+                DataSet dsKH = khachHang.GetIdKH();
+                DataTable dtKH = dsKH.Tables[0];
+                foreach (DataRow dt in dtKH.Rows)
+                {
+                    cbxKhachHang.Items.Add(dt["idKH"].ToString().Trim());
+                }
+
+
             }
             catch (SqlException ex)
             {
@@ -276,6 +352,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                khachHang = new KhachHang(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = khachHang.Get();
@@ -292,6 +369,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                hoaDon = new HoaDon(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = hoaDon.Top1BanChay();
@@ -307,6 +385,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                inhoadon = new ChiTietHoaDon(CapDoQuyen);
                 string idHD = txtIdHoaDon.Text.Trim();
                 dataTable = new DataTable();
                 dataTable.Clear();
@@ -346,6 +425,8 @@ namespace FutureWorldStore.Views
         #region Add
         private void addHangDienThoai()
         {
+            
+            hangDienThoai = new HangDienThoai(CapDoQuyen);
             string idHDT = txtMHDT.Text.Trim();
             string nameHDT = txtHDT.Text.Trim();
             int status = statuss.IsChecked == true ? 1 : 0;
@@ -366,6 +447,8 @@ namespace FutureWorldStore.Views
         }
         private void addNhaCungCap()
         {
+
+            nhaCungCap = new NhaCungCap(CapDoQuyen);
             string idncc = txtidNhaCungCap.Text.Trim();
             string tenNCC = txttenNhaCungCap.Text.Trim();
             string sdtNCC = txtSDTNCC.Text.Trim();
@@ -390,7 +473,7 @@ namespace FutureWorldStore.Views
         {
 
             DataRow row = (dgThongTinSearch.SelectedItem as DataRowView)?.Row!;
-
+            inhoadon = new ChiTietHoaDon(CapDoQuyen);
             string idDT = row["idDienThoai"].ToString()!.Trim();
             string soLuong = txtSoLuongDT.Text.Trim();
             string giaBan = row["giaBan"].ToString()!.Trim();
@@ -440,6 +523,7 @@ namespace FutureWorldStore.Views
         }
         private void addKhachHang()
         {
+            khachHang = new KhachHang(CapDoQuyen);
             string idKH = txtIdKH.Text.Trim();
             string tenKH = txtTenKH.Text.Trim();
             string sdtKH = txtSoDTKH.Text.Trim();
@@ -461,7 +545,7 @@ namespace FutureWorldStore.Views
 
         private void addDienThoai()
         {
-
+            dt = new DienThoai(CapDoQuyen);
             string idDt = txtIdDienThoai.Text.Trim();
             string idHDT = cbHangDienThoai.SelectionBoxItem.ToString().Trim();
             string nameDT = txtTenDienThoai.Text.Trim();
@@ -490,6 +574,7 @@ namespace FutureWorldStore.Views
 
         private void addNhapKho()
         {
+            nhapKho = new NhapKho(CapDoQuyen);
             string idNhapKho = txtIdNhapKho.Text.Trim();
             //string idNhanVien = txtMaNV.Text.Trim();
             //string idNCC = txtMaNCC.Text.Trim();
@@ -513,6 +598,7 @@ namespace FutureWorldStore.Views
         }
         private void addNhanVien()
         {
+            nhanVien = new NhanVien(CapDoQuyen);
             string idNV = txtIdNV.Text.Trim();
             string tenNV = txtTenNV.Text.Trim();
             string username = txtTenDangNhap.Text.Trim();
@@ -541,6 +627,7 @@ namespace FutureWorldStore.Views
         #region Search
         private void SearchDienThoai()
         {
+            dt = new DienThoai(CapDoQuyen);
             string idDt = txtIdDienThoai.Text.Trim();
             string idHDT = cbHangDienThoai.SelectionBoxItem.ToString().Trim();
             string nameDT = txtTenDienThoai.Text.Trim();
@@ -566,6 +653,7 @@ namespace FutureWorldStore.Views
         }
         private void searchHangDienThoai()
         {
+            hangDienThoai = new HangDienThoai(CapDoQuyen);
             string idDt = txtMHDT.Text.Trim();
             string idHDT = txtHDT.Text.Trim();
             int status = statuss.IsChecked == true ? 1 : 0;
@@ -586,6 +674,7 @@ namespace FutureWorldStore.Views
 
         private void searchNhaCungCap()
         {
+            nhaCungCap = new NhaCungCap(CapDoQuyen);
             string idNCC = txtidNhaCungCap.Text.Trim();
             string tenNCC = txttenNhaCungCap.Text.Trim();
             string sdt = txtSDTNCC.Text.Trim();
@@ -608,6 +697,7 @@ namespace FutureWorldStore.Views
 
         private void searchNhapKho()
         {
+            nhaCungCap = new NhaCungCap(CapDoQuyen);
             string idNCC = txtidNhaCungCap.Text.Trim();
             string tenNCC = txttenNhaCungCap.Text.Trim();
             string sdt = txtSDTNCC.Text.Trim();
@@ -630,6 +720,7 @@ namespace FutureWorldStore.Views
 
         private void searchKhachHang()
         {
+            khachHang = new KhachHang(CapDoQuyen);
             string idKH = txtIdKH.Text.Trim();
             string tenKH = txtTenKH.Text.Trim();
             string soDT = txtSoDTKH.Text.Trim();
@@ -662,6 +753,7 @@ namespace FutureWorldStore.Views
         }
         private void EditDienThoai()
         {
+            dt = new DienThoai(CapDoQuyen);
             string idDt = txtIdDienThoai.Text.Trim();
             string idHDT = cbHangDienThoai.Text.Trim();
             string nameDT = txtTenDienThoai.Text.Trim();
@@ -695,6 +787,7 @@ namespace FutureWorldStore.Views
         }
         private void EditHangDienThoai()
         {
+            hangDienThoai = new HangDienThoai(CapDoQuyen);
             string idDt = txtMHDT.Text.Trim();
             string idHDT = txtHDT.Text.Trim();
             int status = statuss.IsChecked == true ? 1 : 0;
@@ -715,6 +808,7 @@ namespace FutureWorldStore.Views
         }
         private void EditNhaCungCap()
         {
+            nhaCungCap = new NhaCungCap(CapDoQuyen);
             string maNCC = txtidNhaCungCap.Text.Trim();
             string tenNCC = txttenNhaCungCap.Text.Trim();
             string sdt = txtSDTNCC.Text.Trim();
@@ -742,6 +836,7 @@ namespace FutureWorldStore.Views
         }
         private void EditKhachHang()
         {
+            khachHang = new KhachHang(CapDoQuyen);
             string idKH = txtIdKH.Text.Trim();
             string tenKH = txtTenKH.Text.Trim();
             string sdtKH = txtSoDTKH.Text.Trim();
@@ -768,6 +863,7 @@ namespace FutureWorldStore.Views
         }
         private void EditNhanVien()
         {
+            nhanVien = new NhanVien(CapDoQuyen);
             string idNV = txtIdNV.Text.Trim();
             string tenNV = txtTenNV.Text.Trim();
             string username = txtTenDangNhap.Text.Trim();
@@ -857,6 +953,7 @@ namespace FutureWorldStore.Views
         }
         private void DeleteDienThoai()
         {
+            dt = new DienThoai(CapDoQuyen);
             string idDt = txtIdDienThoai.Text.Trim();
             try
             {
@@ -875,6 +972,7 @@ namespace FutureWorldStore.Views
         }
         private void DeleteHangDienThoai()
         {
+            hangDienThoai = new HangDienThoai(CapDoQuyen);
             string idHDt = txtMHDT.Text.Trim();
             try
             {
@@ -894,6 +992,7 @@ namespace FutureWorldStore.Views
 
         private void DeleteNhaCungCap()
         {
+            nhaCungCap = new NhaCungCap(CapDoQuyen);
             string idNCC = txtidNhaCungCap.Text.Trim();
             try
             {
@@ -913,6 +1012,7 @@ namespace FutureWorldStore.Views
 
         private void DeleteNhapKho()
         {
+            nhapKho = new NhapKho(CapDoQuyen);
             string idNhapKho = txtIdNhapKho.Text.Trim();
             try
             {
@@ -933,6 +1033,7 @@ namespace FutureWorldStore.Views
         //DeleteKhachHang
         private void DeleteKhachHang()
         {
+            khachHang = new KhachHang(CapDoQuyen);
             string idKH = txtIdKH.Text.Trim();
             try
             {
@@ -951,6 +1052,7 @@ namespace FutureWorldStore.Views
         }
         private void DeleteNhanVien()
         {
+            nhanVien = new NhanVien(CapDoQuyen);
             string idNV = txtIdNV.Text.Trim();
             try
             {
@@ -1031,6 +1133,7 @@ namespace FutureWorldStore.Views
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            khachHang = new KhachHang(CapDoQuyen);
 
             if (grvDienThoai.Visibility == Visibility.Visible)
             {
@@ -1413,6 +1516,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                khachHang = new KhachHang(CapDoQuyen);
                 dataTable = new DataTable();
                 dataTable.Clear();
                 DataSet ds = khachHang.SearchSDT(sdtKH);
@@ -1442,6 +1546,7 @@ namespace FutureWorldStore.Views
         {
             try
             {
+                khachHang = new KhachHang(CapDoQuyen);
                 string tenKH = txtTenKHInHD.Text.Trim();
                 string sdtKH = txtSDTInHD.Text.Trim();
                 loadKHSDT(txtSDTInHD.Text.Trim());
@@ -1464,6 +1569,11 @@ namespace FutureWorldStore.Views
         {
             
             loadDienThoai(txtSearchDT.Text.Trim());
+        }
+
+        private void cbxIdNV_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

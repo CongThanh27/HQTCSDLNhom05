@@ -13,10 +13,15 @@ namespace FutureWorldStore.Controls
         private string view = " v_infHoaDon";
         private string view2 = " sp_thongKeTongDoanhThu";
 
-        public HoaDon()
+       /* public HoaDon()
         {
             db = new DBMain();
+        }*/
+        public HoaDon(string role)
+        {
+            db = new DBMain(role);
         }
+
         public DataSet Top1BanChay()
         {
             return db.ExecuteQueryDataSet($"select * from ThongKeTop1BanChay()", CommandType.Text);

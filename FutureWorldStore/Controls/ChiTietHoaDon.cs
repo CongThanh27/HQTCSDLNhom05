@@ -12,9 +12,14 @@ namespace FutureWorldStore.Controls
     {
         DBMain db = null!;
         private string view = " v_infChiTietHoaDon";
-        public ChiTietHoaDon()
+        /*public ChiTietHoaDon()
         {
             db = new DBMain();
+        }*/
+
+        public ChiTietHoaDon(string role)
+        {
+            db = new DBMain(role);
         }
         public DataSet Get()
         {

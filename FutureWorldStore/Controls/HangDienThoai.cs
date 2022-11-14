@@ -11,9 +11,14 @@ namespace FutureWorldStore.Controls
     class HangDienThoai
     {
         DBMain db = null!;
-        public HangDienThoai()
+        /*public HangDienThoai()
         {
             db = new DBMain();
+        }
+*/
+        public HangDienThoai(string role)
+        {
+            db = new DBMain(role);
         }
         private string view = "v_infHangDT";
 
