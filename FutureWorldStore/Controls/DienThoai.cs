@@ -12,9 +12,13 @@ namespace FutureWorldStore.Controls
     {
         DBMain db = null!;
         private string view = " v_infdienthoai";
-        public DienThoai()
+       /* public DienThoai()
         {
             db = new DBMain();
+        }*/
+        public DienThoai(string role)
+        {
+            db = new DBMain(role);
         }
 
         public DataSet GetName()

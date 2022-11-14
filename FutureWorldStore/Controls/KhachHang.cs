@@ -13,21 +13,23 @@ namespace FutureWorldStore.Controls
     {
         DBMain db = null!;
         private string view = " v_infkhachhang";
-        public KhachHang()
+       /* public KhachHang()
         {
             db = new DBMain();
+        }*/
+        public KhachHang(string role)
+        {
+            db = new DBMain(role);
         }
+
         public DataSet Get()
         {
             return db.ExecuteQueryDataSet($"select * from {view}", CommandType.Text);
         }
-
-        public bool AddKH( string tenKH, string sdt, ref string err)
+        public DataSet GetIdKH()
         {
-            string sqlString = $"insert into KHACHHANG  values (N'{tenKH}', '{sdt}','0','0')";
-            return db.MyExecuteNonQuery(sqlString, CommandType.Text, ref err);
+            return db.ExecuteQueryDataSet($"SELECT * from Khachhang", CommandType.Text);
         }
-
         public bool Add(string idKH, string tenKH, string sdt, ref string err)
         {
             string sqlString = $"exec sp_ReviseKhachHang '{idKH}',N'{tenKH}','{sdt}','{0}'";

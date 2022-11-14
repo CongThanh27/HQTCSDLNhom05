@@ -1115,7 +1115,7 @@
                     <!--KhuyenMai-->
 
                     <!--Hãng điện thoại-->
-                    <ComboBox x:Name="cbxIdNV" HorizontalAlignment="Left" Margin="160,55,0,0" VerticalAlignment="Top" Width="236" >
+                    <ComboBox x:Name="cbxIdNV" HorizontalAlignment="Left" Margin="160,55,0,0" VerticalAlignment="Top" Width="236" SelectionChanged="cbxIdNV_SelectionChanged" >
                         <ComboBox.ContextMenu>
                             <ContextMenu/>
                         </ComboBox.ContextMenu>
@@ -1850,7 +1850,7 @@
                     </ComboBox>
 
                 </Grid>
-                <Grid x:Name="grvHoaDon" Visibility="Hidden">
+                <Grid x:Name="grvHoaDon" Visibility="Visible">
 
                     <!--Hãng điện thoại-->
 
@@ -1896,28 +1896,6 @@
                         Margin="16,48,0,0"
                         Content="Mã Nhân Viên"/>
 
-                    <TextBox
-                        x:Name="txtIdNvHoaDon"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Width="240"
-                        Height="24"
-                        Margin="160,48,0,0"
-                        Background="#eee"
-                        BorderThickness="0"
-                        VerticalContentAlignment="Center"
-                        FontSize="16"
-                        
-                        Foreground="#4a4a4a"
-                        >
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="4"/>
-                                <Setter Property="Padding" Value="16,0" />
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
-
 
 
                     <!--Màu Sắc-->
@@ -1929,28 +1907,6 @@
                         FontWeight="DemiBold"
                         Margin="16,80,0,0"
                         Content="Mã Khách Hàng"/>
-
-                    <TextBox
-                        x:Name="txtMaKHHoaDon"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Width="240"
-                        Height="24"
-                        Margin="160,80,0,0"
-                        Background="#eee"
-                        BorderThickness="0"
-                        VerticalContentAlignment="Center"
-                        FontSize="16"
-                        
-                        Foreground="#4a4a4a"
-                        >
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="4"/>
-                                <Setter Property="Padding" Value="16,0" />
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
 
 
 
@@ -2169,6 +2125,28 @@
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
+                    <ComboBox x:Name="cbxNhanVien"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Width="240"
+                        Height="24"
+                        Margin="160,48,0,0"
+                        Background="#eee"
+                        BorderThickness="0"
+                        VerticalContentAlignment="Center"
+                        FontSize="16"
+                        
+                        Foreground="#4a4a4a"/>
+                    <ComboBox 
+                        x:Name="cbxKhachHang"
+                        Width="240"
+                        Height="24"
+                        Margin="160,80,560,456"
+                        Background="#eee"
+                        BorderThickness="0"
+                        VerticalContentAlignment="Center"
+                        FontSize="16"
+                        Foreground="#4a4a4a"/>
 
                 </Grid>
 
@@ -2619,7 +2597,7 @@
                         Content="Mã hóa đơn:" Width="100"/>
 
                 </Grid>
-                <Grid x:Name="grvInHoaDon" Visibility="Visible">
+                <Grid x:Name="grvInHoaDon" Visibility="Hidden">
 
                     <!--Hãng điện thoại-->
 
@@ -2733,8 +2711,7 @@
                             </Style>
                         </TextBox.Resources>
                     </TextBox>
-                    <Label Content="Mã Hóa Đơn
-                           " HorizontalAlignment="Left" Margin="600,102,0,0" VerticalAlignment="Top" Width="106"/>
+                    <Label Content="Mã Hóa Đơn                            " HorizontalAlignment="Left" Margin="600,102,0,0" VerticalAlignment="Top" Width="106"/>
                     <TextBox
                         x:Name="txtIDHoaDon"
                         VerticalAlignment="Top"
@@ -2757,8 +2734,7 @@
                         </TextBox.Resources>
                     </TextBox>
                     <DataGrid x:Name="dgThongTinSearch" Margin="0,217,0,258" Background="#FFC8F3FB" SelectedCellsChanged="dgDienThoai_SelectedCellsChanged" />
-                    <Label Content="Nhập thông tin điện thoại
-                           " HorizontalAlignment="Left" Margin="18,166,0,0" VerticalAlignment="Top" Width="153"/>
+                    <Label Content="Nhập thông tin điện thoại                            " HorizontalAlignment="Left" Margin="18,166,0,0" VerticalAlignment="Top" Width="153"/>
                     <TextBox
                         x:Name="txtSearchDT"
                         VerticalAlignment="Top"

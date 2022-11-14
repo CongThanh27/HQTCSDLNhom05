@@ -15,14 +15,20 @@ namespace FutureWorldStore.Controls
         DBMain db = null!;
         private string view = " v_infNhanVien";
         private string statemantype = "Update";
-        public NhanVien()
+       /* public NhanVien()
         {
             db = new DBMain();
+        }*/
+        public NhanVien(string role)
+        {
+            db = new DBMain(role);
         }
+
         public DataSet Get()
         {
             return db.ExecuteQueryDataSet($"select * from {view}", CommandType.Text);
         }
+
         public bool Add(string idNV, string tenNV, string username, string password, string sdt, string email, string phanquyen, string status, ref string err)
         {
             string sqlString = $"exec sp_reviseNhanVien '{idNV}',N'{tenNV}','{username}','{password}','{sdt}','{email}','{phanquyen}'";
