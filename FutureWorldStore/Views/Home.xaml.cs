@@ -144,6 +144,22 @@ namespace FutureWorldStore.Views
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void loadDienThoai(string tenDT)
+        {
+            try
+            {
+                dataTable = new DataTable();
+                dataTable.Clear();
+                DataSet ds = dt.SearchPhone(tenDT);
+                dataTable = ds.Tables[0];
+                dgThongTinSearch.ItemsSource = ds.Tables[0].DefaultView;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void loadThongKe()
         {
             try
@@ -189,6 +205,24 @@ namespace FutureWorldStore.Views
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void loadDSCTHD(string idHoaDon)
+        {
+            try
+            {
+                dataTable = new DataTable();
+                dataTable.Clear();
+                DataSet ds = inhoadon.GetID(idHoaDon);
+                dataTable = ds.Tables[0];
+                dgDSCTHD.ItemsSource = ds.Tables[0].DefaultView;
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        
+
         private void loadNhapKho()
         {
             try
@@ -352,7 +386,58 @@ namespace FutureWorldStore.Views
                 err = ex.Message;
             }
         }
+        private void addCTHD(string idHoanDon)
+        {
 
+            DataRow row = (dgThongTinSearch.SelectedItem as DataRowView)?.Row!;
+
+            string idDT = row["idDienThoai"].ToString()!.Trim();
+            string soLuong = txtSoLuongDT.Text.Trim();
+            string giaBan = row["giaBan"].ToString()!.Trim();
+            string khuyenMai = row["khuyenMai"].ToString()!.Trim();
+            string status = "1";
+
+            try
+            {
+                //Them chi tiet hoa don
+                if (inhoadon.Add(idHoanDon, idDT, soLuong, giaBan, khuyenMai, status, ref err))
+                    MessageBox.Show("Thêm thành công!", "In Hoa Don", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                    MessageBox.Show(err);
+                // Hiển thị lại view ncc
+                loadDSCTHD(idHoanDon);
+            }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+            }
+
+
+            /*
+                        cbHangDienThoai.Text = row["idHangDT"].ToString()!.Trim();
+                        txtTenDienThoai.Text = row["tenDienThoai"].ToString()!.Trim();
+                        txtMauSac.Text = row["mauSac"].ToString()!.Trim();
+                        txtDungLuong.Text = row["dungLuong"].ToString()!.Trim();
+                        txtBoNho.Text = row["boNho"].ToString()!.Trim();
+                        txtSoLuong.Text = row["soLuong"].ToString()!.Trim();
+                        txtGiaBan.Text = row["giaBan"].ToString()!.Trim();
+                        txtKhuyenMai.Text = row["khuyenMai"].ToString()!.Trim();
+                        txtIdDienThoai.Text = row["idDienThoai"].ToString()!.Trim();*/
+
+/*            try
+            {*/
+/*                if (nhaCungCap.Add(idncc, tenNCC, sdtNCC, emailNCC, diachiNCC, status, ref err))
+                    MessageBox.Show("Thêm thành công!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                else
+                    MessageBox.Show(err);
+                // Hiển thị lại view ncc
+                loadNhaCungCap();*/
+ /*           }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+            }*/
+        }
         private void addKhachHang()
         {
             string idKH = txtIdKH.Text.Trim();
@@ -923,7 +1008,7 @@ namespace FutureWorldStore.Views
 
         private void btnInHoaDon_Click(object sender, RoutedEventArgs e)
         {
-
+            dgvTab_Capture_Action(btnInHoaDon, grvInHoaDon);
         }
 
         private void btnHoaDon_Click(object sender, RoutedEventArgs e)
@@ -976,6 +1061,22 @@ namespace FutureWorldStore.Views
                 addKhachHang();
             if (grvNhanVien.Visibility == Visibility.Visible)
                 addNhanVien();
+            if (grvInHoaDon.Visibility == Visibility.Visible)
+            {
+                string tenKH = txtTenKHInHD.Text.Trim();
+                string sdtKH = txtSDTInHD.Text.Trim();
+                string idHoaDon = txtIDHoaDon.Text.Trim();
+
+                //hoaDon.Add();
+
+                if (!khachHang.SearchKH(sdtKH, ref err))
+                {
+                    khachHang.AddKH(tenKH,sdtKH, ref err);
+                }
+                addCTHD(txtIDHoaDon.Text.Trim());
+            }
+                
+
         }
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
@@ -1097,7 +1198,7 @@ namespace FutureWorldStore.Views
                     txtKhuyenMai.Text = row["khuyenMai"].ToString()!.Trim();
                     txtIdDienThoai.Text = row["idDienThoai"].ToString()!.Trim();
 
-                    if (row["tenDienThoai"].ToString()!.Trim() == "IPhone 11" && row["mauSac"].ToString()!.Trim() == "Trắng")
+                    /*if (row["tenDienThoai"].ToString()!.Trim() == "IPhone 11" && row["mauSac"].ToString()!.Trim() == "Trắng")
                         Anhhhh.Background = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.GetFullPath("F:/CNTT/N3/Ky1/Hệ quản trị CSDL/Finaly_Project/FutureWorldStore/FutureWorldStore/Images/iphone-11-do-1-1-1-org.jpg"))));
 
                     Anhhhh.Background = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.GetFullPath("F:/CNTT/N3/Ky1/Hệ quản trị CSDL/Finaly_Project/FutureWorldStore/FutureWorldStore/Images/iphone-11-do-1-1-1-org.jpgip11_den.jpg"))));
@@ -1113,13 +1214,13 @@ namespace FutureWorldStore.Views
                         Anhhhh.Background = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.GetFullPath("F:/CNTT/N3/Ky1/Hệ quản trị CSDL/Finaly_Project/FutureWorldStore/FutureWorldStore/Images/iphone-12-trang-1-1-org.jpg"))));
                     else if (row["tenDienThoai"].ToString()!.Trim() == "IPhone 12" && row["mauSac"].ToString()!.Trim() == "Đỏ")
                         Anhhhh.Background = new ImageBrush(new BitmapImage(new Uri(System.IO.Path.GetFullPath("F:/CNTT/N3/Ky1/Hệ quản trị CSDL/Finaly_Project/FutureWorldStore/FutureWorldStore/Images/iphone-12-do-1-1-org.jpg"))));
-
+*/
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -1226,9 +1327,6 @@ namespace FutureWorldStore.Views
             loginWindow.Show();
         }
 
-        private void dgThongKe_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        { 
-        }
 
         //Load top 1 bán chạy 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -1310,6 +1408,62 @@ namespace FutureWorldStore.Views
         {
             dgvTab_Capture_Action(btnHoaDon, grvChiTietHoaDon);
             this.loadInHoaDon();
+        }
+        private void loadKHSDT(string sdtKH)
+        {
+            try
+            {
+                dataTable = new DataTable();
+                dataTable.Clear();
+                DataSet ds = khachHang.SearchSDT(sdtKH);
+                dataTable = ds.Tables[0];
+                /* txtTenKHInHD.Text = ds.Tables[0].Rows["tenKH"].ToString().Trim();*/
+                foreach (DataRow dt in dataTable.Rows)
+                {
+                    txtTenKHInHD.Text = dt["tenKH"].ToString().Trim();
+                }
+
+                //dgThongKe.ItemsSource = ds.Tables[0].DefaultView;
+
+                // Lấy data hiển thị lên Combobox
+                /*                DataSet dataSet = hangDienThoai.GetName();
+                                DataTable dtable = dataSet.Tables[0];
+                                foreach (DataRow dt in dtable.Rows)
+                                {
+                                    cbHangDienThoai.Items.Add(dt["idHangDT"].ToString().Trim());
+                                }*/
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }    
+        private void txtSDTInHD_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string tenKH = txtTenKHInHD.Text.Trim();
+                string sdtKH = txtSDTInHD.Text.Trim();
+                loadKHSDT(txtSDTInHD.Text.Trim());
+                if(txtTenKHInHD.Text == null)
+                {
+                    khachHang.AddKH(tenKH, sdtKH, ref err);
+                }
+                // Co the xu ly lay id Hoa Don moi nhat roi cong 1
+                txtIDHoaDon.Text = "HD";
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+        //Tìm điện thoại : In hóa đơn
+        private void txtSearchDT_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            
+            loadDienThoai(txtSearchDT.Text.Trim());
         }
     }
 }

@@ -29,9 +29,15 @@ namespace FutureWorldStore.Controls
         {
             return db.ExecuteQueryDataSet($"select dbo.fn_SumMoneyCTHD('{id}')", CommandType.Text);
         }
-        public bool Add(string idChiTietHoaDon, string idHoaDon, string idDienThoai, string soLuong, string status, ref string err)
+        public bool AddCTHD( string idHoaDon, string idDienThoai, string soLuong, string status, ref string err)
         {
-            string sqlString = $"exec sp_ReviseChiTietHoaDon '{idChiTietHoaDon}','{idHoaDon}',N'{idDienThoai}',N'{soLuong}',{status},'Insert'";
+            string sqlString = $"exec sp_ReviseChiTietHoaDon '{idHoaDon}',N'{idDienThoai}',N'{soLuong}',{status},'Insert'";
+            return db.MyExecuteNonQuery(sqlString, CommandType.Text, ref err);
+        }
+
+        public bool Add(string idHoaDon, string idDienThoai, string soLuong,string giaBan, string khuyenMai, string status, ref string err)
+        {
+            string sqlString = $"exec insert_CTHD '{idHoaDon}','{idDienThoai}','{soLuong}','{giaBan}','{khuyenMai}','{status}'";
             return db.MyExecuteNonQuery(sqlString, CommandType.Text, ref err);
         }
         public bool Update(string idChiTietHoaDon, string idHoaDon, string idDienThoai, string soLuong, string status, ref string err)
