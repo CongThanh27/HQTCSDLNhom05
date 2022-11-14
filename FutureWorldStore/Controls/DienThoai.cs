@@ -71,6 +71,10 @@ namespace FutureWorldStore.Controls
             return db.ExecuteQueryDataSet(sqlString, CommandType.Text);
         }
 
+        public DataSet SearchPhone(string tenDT)
+        {
+            return db.ExecuteQueryDataSet($"select * from fn_SearchPhone('{tenDT}')", CommandType.Text);
+        }
     }
 
 }

@@ -17,7 +17,7 @@ namespace FutureWorldStore.Models
 
         //string ConnStr = @"Data Source=QUANGHUY;Initial Catalog=PMBanDienThoai;User ID=sa;Password=123";
         //string ConnStr = @"Data Source=DESKTOP-AM54MG4\HOANGTOAN;Initial Catalog=PMBanDienThoai;User ID=sa;Password=123";
-        string ConnStr = @"Data Source=CONG-THANH-DESK\SQLEXPRESS;Initial Catalog=PMBanDienThoai;User ID=sa;Password=28072002";
+        string ConnStr = @"Data Source=DESKTOP-AM54MG4\HOANGTOAN;Initial Catalog=PMBanDienThoai04;User ID=sa;Password=123";
         //string ConnStr = @"Data Source=" + datasource + ";Initial Catalog=" + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
         SqlConnection conn = null!;
         SqlCommand comm = null!;
